@@ -1,0 +1,14 @@
+version: '3'
+services:
+  teachers:
+    build:
+      context: .
+      dockerfile: Dockerfile.learner-app
+    ports:
+      - '3001:3001'
+      - '4101:4101'
+      - '4102:4102'
+      - '4103:4103'
+      - '4107:4107'
+    environment:
+      - NODE_ENV=production

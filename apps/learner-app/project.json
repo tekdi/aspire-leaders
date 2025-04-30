@@ -1,0 +1,50 @@
+{
+  "name": "learner-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/learner-app",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project learner-app --web",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/learner-app"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/learner-app"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "learner-app:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "learner-app:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "learner-app:build:production",
+          "dev": false
+        }
+      }
+    },
+    "dev": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "learner-app:build",
+        "dev": true
+      }
+    }
+  }
+}
