@@ -1,9 +1,9 @@
-name: Deploy to PROD Teacher
+name: Deploy to DEV Teacher
 
 on:
   push:
     branches:
-      - main-teacher-prod
+      - main-learner
 
 jobs:
   deploy:
@@ -16,12 +16,12 @@ jobs:
 
       # Step 2: Create a .env file
       - name: Create .env file
-        run: echo "${{ secrets.PROD_LMP_ENV }}" > .env && ls -ltra
+        run: echo "${{ secrets.DEV_LMP_ENV }}" > .env && ls -ltra
 
       # Step 4: Build and tag the Docker image
       - name: Build Docker image
         run: |
-          docker build -f Dockerfile.teachers -t ${{ secrets.ECR_REPO_NAME_LMP_PROD }}:${{ secrets.IMAGE_TAG_LMP }} .
+          docker build -f Dockerfile.learner -t ${{ secrets.ECR_REPO_NAME_LMP_DEV }}:${{ secrets.IMAGE_TAG_LMP }} .
 
       # Step 5: Push the Docker image to Amazon ECR
       - name: Push Docker image to ECR
@@ -32,27 +32,28 @@ jobs:
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
           aws configure set default.region ${{ secrets.AWS_REGION }}
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_URI_PROD_LMP }}
-          docker push ${{ secrets.ECR_REPO_NAME_LMP_PROD }}:${{ secrets.IMAGE_TAG_LMP }}
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_URI }}
+          docker push ${{ secrets.ECR_REPO_NAME_LMP_DEV }}:${{ secrets.IMAGE_TAG_LMP }}
 
       # Step 6: Remove Docker image from GitHub Actions runner
       - name: Remove Docker image from runner
         run: |
-          docker rmi ${{ secrets.ECR_REPO_NAME_LMP_PROD }}:${{ secrets.IMAGE_TAG_LMP }}
+          docker rmi ${{ secrets.ECR_REPO_NAME_LMP_DEV }}:${{ secrets.IMAGE_TAG_LMP }}
 
       # Step 7: SSH to the EC2 server and deploy
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
-          host: ${{ secrets.EC2_HOST_PROD }}
-          username: ${{ secrets.EC2_USER_PROD }}
-          key: ${{ secrets.EC2_SSH_KEY_PROD }}
+          host: ${{ secrets.EC2_HOST_DEV }}
+          username: ${{ secrets.EC2_USER_DEV }}
+          key: ${{ secrets.EC2_SSH_KEY_DEV }}
           script: |
-            cd ${{ secrets.TARGET_PROD_LMP }}
-            docker stop prod-lmp || true
+            cd ${{ secrets.TARGET_DEV_LMP }}
+            docker ps -a --filter "status=exited" --format "{{.ID}}" | xargs -r docker start
+            docker stop dev-lmp || true
             docker system prune -af || true
             aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_URI }}
             docker-compose up -d --force-recreate --no-deps
             docker system prune -af || true
-            docker ps -a
+            docker ps -a | grep dev-lmp
             sudo systemctl restart nginx

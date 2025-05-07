@@ -1,4 +1,10 @@
-# Pratham 2.0
+# Aspire-Leaders
+
+Steps to Up Nx Workspace
+
+1. npx nx init
+2. npm install -g nx
+3. npm install
 
 ## Host App
 
