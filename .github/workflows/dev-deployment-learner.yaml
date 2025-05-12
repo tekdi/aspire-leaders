@@ -50,4 +50,12 @@ jobs:
           port: ${{ secrets.PORT_AL }}
           script: |
             cd /home/ubuntu/Aspire-leader/FRONTEND/LEARNER
+
+            if kubectl get deployment teachers -n dev > /dev/null 2>&1; then
+            echo "Deleting existing backend deployment..."
+            kubectl delete deployment teachers -n dev
+            else
+            echo "No existing backend deployment found. Continuing..."
+            fi 
+            
             kubectl apply -f dev-deployment-learner-app.yaml -n dev
