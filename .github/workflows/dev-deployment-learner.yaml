@@ -15,8 +15,8 @@ jobs:
         uses: actions/checkout@v3
 
       # Step 2: Create a .env file
-#      - name: Create configmap.yaml file
- #       run: echo "${{ secrets.DEV_LEARNER_ENV }}" > configmap.yaml && ls -ltra
+      - name: Create env file
+        run: echo "${{ secrets.DEV_LEARNER_ENV }}" > .env && ls -ltra
 
       # Step 4: Build and tag the Docker image
       - name: Build Docker image
