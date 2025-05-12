@@ -2,48 +2,36 @@ module.exports = {
   apps: [
     {
       name: 'learner-app',
-      script: 'node_modules/.bin/next',
-      args: 'start -p 3001',
-      cwd: 'apps/learner-app',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 3002',
+      cwd: '/workspace/dist/apps/learner-app',
       env: {
         NODE_ENV: 'production',
       },
+      error_file: '/var/log/learner-app.err.log',
+      out_file: '/var/log/learner-app.out.log',
     },
-    // {
-    //   name: 'authentication',
-    //   script: 'node_modules/.bin/next',
-    //   args: 'start -p 4101',
-    //   cwd: 'mfes/authentication',
-    //   env: {
-    //     NODE_ENV: 'production',
-    //   },
-    // },
-    // {
-    //   name: 'scp-teacher-repo',
-    //   script: 'node_modules/.bin/next',
-    //   args: 'start -p 4102',
-    //   cwd: 'mfes/scp-teacher-repo',
-    //   env: {
-    //     NODE_ENV: 'production',
-    //   },
-    // },
-    // {
-    //   name: 'youthNet',
-    //   script: 'node_modules/.bin/next',
-    //   args: 'start -p 4103',
-    //   cwd: 'mfes/youthNet',
-    //   env: {
-    //     NODE_ENV: 'production',
-    //   },
-    // },
-    // {
-    //   name: 'players',
-    //   script: 'node_modules/.bin/next',
-    //   args: 'start -p 4107',
-    //   cwd: 'mfes/players',
-    //   env: {
-    //     NODE_ENV: 'production',
-    //   },
-    // },
+    {
+      name: 'authentication',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 4101',
+      cwd: '/workspace/mfes/authentication',
+      env: {
+        NODE_ENV: 'production',
+      },
+      error_file: '/var/log/authentication.err.log',
+      out_file: '/var/log/authentication.out.log',
+    },
+    {
+      name: 'forget-password',
+      script: 'node_modules/next/dist/bin/next',
+      args: 'start -p 4109',
+      cwd: '/workspace/mfes/forget-password',
+      env: {
+        NODE_ENV: 'production',
+      },
+      error_file: '/var/log/forget-password.err.log',
+      out_file: '/var/log/forget-password.out.log',
+    },
   ],
 };

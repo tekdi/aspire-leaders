@@ -1,29 +1,13 @@
-FROM node:20
-
-# Set the working directory
+FROM node:20-alpine
 WORKDIR /workspace
-
-# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
-
-# Install dependencies
+COPY nx.json .
 RUN npm install --legacy-peer-deps
-
-# Copy the entire NX workspace
 COPY . .
-
-# Build all applications
-# RUN npx nx run-many --target=build --all
-
-# Build Specific Application
-# Build only specific applications
-RUN npx nx run-many --target=build --projects=learner-app
-
-# Install PM2 to manage multiple apps
+RUN npx nx build learner-app --prod && \
+    npx nx build forget-password --prod
+    npx nx build authentication --prod
+RUN mkdir -p /var/log
 RUN npm install -g pm2
-
-# Expose the ports for all apps
-EXPOSE 3001 
-
-# Command to run all apps using PM2
+EXPOSE 3001 4109 4101
 CMD ["pm2-runtime", "ecosystem.learner-app.config.js"]
