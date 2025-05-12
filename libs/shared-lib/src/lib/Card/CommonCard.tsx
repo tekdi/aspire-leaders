@@ -14,12 +14,13 @@ interface CommonCardProps {
   title: string;
   avatarLetter?: string;
   avatarColor?: string;
-  subheader?: string;
+  subtitle?: string;
   image?: string;
   imageAlt?: string;
-  content?: React.ReactNode;
+  header?: React.ReactNode;
+  subheader?: React.ReactNode;
   actions?: React.ReactNode;
-  children?: React.ReactNode;
+  description?: React.ReactNode;
   orientation?: 'vertical' | 'horizontal';
   minheight?: string;
   status?: 'Not started' | 'Completed' | 'In progress' | string;
@@ -31,15 +32,16 @@ export const CommonCard: React.FC<CommonCardProps> = ({
   avatarLetter,
   avatarColor = red[500],
   title,
-  subheader,
+  subtitle,
   image,
   imageAlt,
-  content,
+  header,
   actions,
-  children,
+  description,
   orientation,
   minheight,
   status,
+  subheader,
   progress,
   onClick,
 }) => {
@@ -63,6 +65,36 @@ export const CommonCard: React.FC<CommonCardProps> = ({
       }}
       onClick={onClick}
     >
+      <CardHeader
+        avatar={
+          avatarLetter && (
+            <Avatar sx={{ bgcolor: avatarColor }} aria-label="avatar">
+              {avatarLetter}
+            </Avatar>
+          )
+        }
+        title={
+          <Typography
+            sx={{
+              fontSize: '16px',
+              whiteSpace: 'wrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              WebkitBoxOrient: 'vertical',
+              WebkitLineClamp: 1,
+              paddingLeft: '5px',
+            }}
+          >
+            {title}
+          </Typography>
+        }
+        subtitle={
+          <Typography variant="h6" sx={{ fontSize: '14px' }}>
+            {subtitle}
+          </Typography>
+        }
+      />
       {/* Image and Progress Overlay */}
       <Box sx={{ position: 'relative', width: '100%' }}>
         {image && (
@@ -140,37 +172,7 @@ export const CommonCard: React.FC<CommonCardProps> = ({
         )}
       </Box>
 
-      <CardHeader
-        avatar={
-          avatarLetter && (
-            <Avatar sx={{ bgcolor: avatarColor }} aria-label="avatar">
-              {avatarLetter}
-            </Avatar>
-          )
-        }
-        title={
-          <Typography
-            sx={{
-              fontSize: '16px',
-              whiteSpace: 'wrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 1,
-              paddingLeft: '5px',
-            }}
-          >
-            {title}
-          </Typography>
-        }
-        subheader={
-          <Typography variant="h6" sx={{ fontSize: '14px' }}>
-            {subheader}
-          </Typography>
-        }
-      />
-      {content && (
+      {header && (
         <CardContent
           sx={{
             display: 'flex',
@@ -180,6 +182,47 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             height: '50px',
           }}
         >
+          <Typography
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {header}
+          </Typography>
+        </CardContent>
+      )}
+
+      {subheader && (
+        <CardContent
+          sx={{
+            display: 'flex',
+            paddingBottom: 0,
+            overflow: 'hidden',
+            maxWidth: '100%',
+            height: '50px',
+          }}
+        >
+          <Typography
+            sx={{
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+          >
+            {subheader}
+          </Typography>
+        </CardContent>
+      )}
+
+      {description && (
+        <CardContent>
+          {' '}
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Typography
               sx={{
@@ -190,22 +233,19 @@ export const CommonCard: React.FC<CommonCardProps> = ({
                 textOverflow: 'ellipsis',
               }}
             >
-              <span style={{ fontSize: '14px', fontWeight: 700 }}>
-                Description:
-              </span>{' '}
-              {content}
+              {description}
             </Typography>
           </Box>
         </CardContent>
       )}
-      {children && <CardContent>{children}</CardContent>}
+
       {actions && (
         <CardActions
           disableSpacing
           sx={{
             border: '1px solid #79747E',
             borderRadius: '8px',
-            width: '80px',
+            width: 'fit-content',
             display: 'flex',
             justifyContent: 'center',
             margin: '12px',

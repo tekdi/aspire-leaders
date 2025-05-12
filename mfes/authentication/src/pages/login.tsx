@@ -24,15 +24,20 @@ import Loader from './components/Loader';
 import { useDirection } from '../hooks/useDirection';
 import config from '../../config.json';
 import ReactGA from 'react-ga4';
-import { Snackbar, Alert } from "@mui/material";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-
+import { Snackbar, Alert } from '@mui/material';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 type LoginPageProps = {
   onLoginSuccess: (response: any) => void;
+  handleRedirect: (response: any) => void;
+  handleHomeRedirect: (response: any) => void;
 };
 
-const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
+const LoginPage: React.FC<LoginPageProps> = ({
+  onLoginSuccess,
+  handleRedirect,
+  handleHomeRedirect,
+}) => {
   const { t, i18n } = useTranslation();
   const theme = useTheme<any>();
   const [showPassword, setShowPassword] = useState(false);
@@ -73,7 +78,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   };
 
   const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
   };
@@ -102,16 +107,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               localStorage.removeItem('refreshToken');
             }
 
+            handleHomeRedirect(response);
+            setLoading(false);
+            console.log('dash')
             const userResponse = await getUserId();
 
-            if (onLoginSuccess) {
-              onLoginSuccess(userResponse);
-              setLoading(false)
-            }
+            // if (onLoginSuccess) {
+            //   onLoginSuccess(userResponse);
+            //   setLoading(false);
+            // }
           }
         }
       } catch (error: any) {
-        setOpen(true)
+        setOpen(true);
         setLoading(false);
       }
     }
@@ -129,8 +137,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
     const { value } = event.target;
     setPassword(value);
   };
-  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === "clickaway") {
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string,
+  ) => {
+    if (reason === 'clickaway') {
       return;
     }
     setOpen(false);
@@ -155,48 +166,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
   return (
     <Box sx={{ overflowY: 'auto', background: theme.palette.warning['A400'] }}>
-      <Box
-        display="flex"
-        flexDirection="column"
-        bgcolor={theme.palette.warning.A200}
-        borderRadius={'10px'}
-        sx={{
-          '@media (min-width: 900px)': {
-            display: 'none',
-          },
-        }}
-      >
-        <Box
-          display={'flex'}
-          overflow="auto"
-          alignItems={'center'}
-          justifyContent={'center'}
-          zIndex={99}
-          sx={{ margin: '5px 10px 25px' }}
-        >
-          <Box
-            sx={{ width: '55%', '@media (max-width: 400px)': { width: '95%' } }}
-          >
-            <Image
-              src={appLogo}
-              alt="App Logo"
-              height={80}
-              layout="responsive"
-            />
-          </Box>
-        </Box>
-      </Box>
-
       <Grid
-        container
-        spacing={2}
+        display={'flex'}
         justifyContent={'center'}
-        px={'30px'}
-        marginBottom={'10px'}
         alignItems={'center'}
         width={'100% !important'}
+        height={'100dvh'}
+        bgcolor={'#FFE69C'}
+        px={'30px'}
       >
-        <Grid
+        {/* <Grid
           sx={{
             '@media (max-width: 900px)': {
               display: 'none',
@@ -213,19 +192,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             alt="Login Image"
             layout="responsive"
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm={12} md={6}>
           <form onSubmit={handleFormSubmit}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
               <Box
                 flexGrow={1}
                 // display={'flex'}
-                bgcolor={theme.palette.warning['A400']}
+                bgcolor={'white'}
                 height="auto"
                 zIndex={99}
                 justifyContent={'center'}
                 p={'2rem'}
-                borderRadius={'2rem 2rem 0 0'}
+                borderRadius={'1rem'}
                 sx={{
                   '@media (min-width: 900px)': {
                     width: '100%',
@@ -234,10 +213,6 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                       darkMode === 'dark'
                         ? 'rgba(0, 0, 0, 0.9) 0px 2px 8px 0px'
                         : 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-                    marginTop: '50px',
-                  },
-                  '@media (max-width: 900px)': {
-                    marginTop: '-25px',
                   },
                 }}
               >
@@ -253,12 +228,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                   }}
                 >
                   {loading && (
-                    <Loader
-                      showBackdrop={true}
-                      loadingText={t('COMMON.LOADING')}
-                    />
+                    <Loader showBackdrop={true} loadingText={'Loading'} />
                   )}
-                  <Box
+                  {/* <Box
                     display={'flex'}
                     overflow="auto"
                     alignItems={'center'}
@@ -279,7 +251,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                         layout="responsive"
                       />
                     </Box>
-                  </Box>
+                  </Box> */}
                 </Box>
                 <Box
                   sx={{
@@ -289,7 +261,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     },
                   }}
                 >
-                  <Box mt={'0.5rem'}>
+                  {/* <Box mt={'0.5rem'}>
                     <FormControl sx={{ m: '1rem 0 1rem' }}>
                       <Select
                         inputProps={{
@@ -318,7 +290,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                         ))}
                       </Select>
                     </FormControl>
-                  </Box>
+                  </Box> */}
                   <Box
                     marginY={'1rem'}
                     sx={{
@@ -336,12 +308,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                       InputLabelProps={{
                         shrink: true,
                       }}
-                      label={t('LOGIN_PAGE.USERNAME')}
-                      placeholder={t('LOGIN_PAGE.USERNAME_PLACEHOLDER')}
+                      // label={t('LOGIN_PAGE.USERNAME')}
+                      label={'Username'}
+                      // placeholder={t('LOGIN_PAGE.USERNAME_PLACEHOLDER')}
+                      placeholder={'Enter Username'}
                       value={username}
                       onChange={handleUsernameChange}
                       error={usernameError}
                       className="userName"
+                      fullWidth
                     />
                   </Box>
                   <Box
@@ -357,6 +332,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                     margin={'2rem 0 0'}
                   >
                     <TextField
+                      fullWidth
                       type={showPassword ? 'text' : 'password'}
                       id="password"
                       InputLabelProps={{
@@ -382,8 +358,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                           </InputAdornment>
                         ),
                       }}
-                      label={t('LOGIN_PAGE.PASSWORD')}
-                      placeholder={t('LOGIN_PAGE.PASSWORD_PLACEHOLDER')}
+                      // label={t('LOGIN_PAGE.PASSWORD')}
+                      label={'Passoword'}
+                      // placeholder={t('LOGIN_PAGE.PASSWORD_PLACEHOLDER')}
+                      placeholder={'Enter Passoword'}
                       value={password}
                       onChange={handlePasswordChange}
                       error={passwordError}
@@ -399,26 +377,20 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                       mt: 1,
                       cursor: 'pointer',
                     }}
-                    onClick={() => {
-                      const resetAppUrl =
-                        process.env.NEXT_PUBLIC_RESET_PASSWORD_URL;
-                      window.open(
-                        `${resetAppUrl}?redirectUrl=${window.location.origin}/login`,
-                        '_self'
-                      );
-                    }}
+                    onClick={handleRedirect}
                   >
-                    {t('LOGIN_PAGE.FORGOT_PASSWORD')}
+                    {/* {t('LOGIN_PAGE.FORGOT_PASSWORD')} */}
+                    Forgot Password
                   </Box>
 
-                  <Box marginTop={'1.2rem'} className="">
+                  {/* <Box marginTop={'1.2rem'} className="">
                     <Checkbox
                       // color="info"
                       onChange={(e) => setRememberMe(e.target.checked)}
                       checked={rememberMe}
                       inputProps={{ 'aria-label': 'Remember Me' }}
-                    />
-                    <button
+                    /> */}
+                  {/* <button
                       type="button"
                       style={{
                         cursor: 'pointer',
@@ -433,9 +405,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                         setRememberMe(!rememberMe);
                       }}
                     >
-                      {t('LOGIN_PAGE.REMEMBER_ME')}
-                    </button>
-                  </Box>
+                      Remember Me
+                    </button> */}
+                  {/* {t('LOGIN_PAGE.REMEMBER_ME')} */}
+                  {/* </Box> */}
                   <Box
                     alignContent={'center'}
                     textAlign={'center'}
@@ -448,13 +421,9 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                       type="submit"
                       fullWidth={true}
                       ref={loginButtonRef}
-                      sx={{
-                        '@media (min-width: 900px)': {
-                          width: '50%',
-                        },
-                      }}
                     >
-                      {t('LOGIN_PAGE.LOGIN')}
+                      {/* {t('LOGIN_PAGE.LOGIN')} */}
+                      Login
                     </Button>
                   </Box>
                 </Box>
@@ -467,14 +436,16 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-<Alert
+        <Alert
           onClose={handleClose}
           severity="error"
-          sx={{ width: "100%", color: "white", backgroundColor: "red" }}
-          icon={<ErrorOutlineIcon sx={{ color: "white" }} />} 
-        >          {t('LOGIN_PAGE.USERNAME_PASSWORD_NOT_CORRECT')}
+          sx={{ width: '100%', color: 'white', backgroundColor: 'red' }}
+          icon={<ErrorOutlineIcon sx={{ color: 'white' }} />}
+        >
+          {' '}
+          {t('LOGIN_PAGE.USERNAME_PASSWORD_NOT_CORRECT')}
         </Alert>
       </Snackbar>
     </Box>

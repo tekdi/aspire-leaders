@@ -12,6 +12,14 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  transpilePackages: ['@mui/material', '@mui/icons-material'],
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@authentication': '../../mfes/authentication',
+    };
+    return config;
+  },
 };
 
 const plugins = [
