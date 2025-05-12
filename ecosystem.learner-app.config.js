@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'learner-app',
       script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3002',
+      args: 'start -p 3001',
       cwd: '/workspace/dist/apps/learner-app',
       env: {
         NODE_ENV: 'production',
