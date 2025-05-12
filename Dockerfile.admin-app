@@ -6,7 +6,7 @@ RUN npm install --legacy-peer-deps
 COPY . .
 RUN npx nx build admin-app --prod && \
     npx nx build forget-password --prod
-     npx nx build authentication --prod
+    npx nx build authentication --prod
 RUN mkdir -p /var/log
 RUN npm install -g pm2
 EXPOSE 3002 4109 4101
