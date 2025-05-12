@@ -17,7 +17,8 @@
     "paths": {
       "@/*": ["apps/admin-app/src/*"],
       "@shared-lib": ["libs/shared-lib/src/index.ts"],
-      "@forget-password/*": ["mfes/forget-password/src/*"]
+      "@forget-password/*": ["mfes/forget-password/src/*"],
+      "@login": ["mfes/authentication/src/pages/login.tsx"]
     }
   },
   "exclude": ["node_modules", "tmp"]

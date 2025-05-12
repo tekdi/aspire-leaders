@@ -1,5 +1,8 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import customAdminTheme from '@/styles/customTheme'; // Adjust path accordingly
 import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -8,9 +11,12 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Welcome to admin-app!</title>
       </Head>
-      <main className="app">
-        <Component {...pageProps} />
-      </main>
+      <CssVarsProvider theme={customAdminTheme} defaultMode="light">
+        <CssBaseline />
+        <main className="app">
+          <Component {...pageProps} />
+        </main>
+      </CssVarsProvider>
     </>
   );
 }

@@ -1,36 +1,44 @@
 'use client';
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Typography, ButtonProps } from '@mui/material';
 interface CustomButtonProps {
   label?: string;
   width?: string;
   height?: string;
   backgroundColor?: string;
   borderRadius?: string;
-  color?: string;
+  color?: ButtonProps['color'];
   fontSize?: string | number;
+  padding?: string | number;
   fontWeight?: string | number;
   supportingText?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+  customVariant?: ButtonProps['variant'];
 }
 
 export const CustomButton: React.FC<CustomButtonProps> = ({
   label = 'Continue',
-  width = '328px',
-  height = '40px',
-  backgroundColor = '#6750A4',
+  width = '',
+  height = '',
+  padding = '12px 60px',
+  backgroundColor = '',
   borderRadius = '50px',
-  color = '#FFFFFF',
+  color,
   fontSize = '16px',
   fontWeight = 'bold',
   supportingText = '',
   onClick,
+  startIcon,
+  endIcon,
+  customVariant = 'contained',
   ...props
 }) => {
   return (
     <Box
       sx={{
-        borderTop: '1px solid #0000004D',
+        // borderTop: '1px solid #0000004D',
         paddingTop: 2,
         width: '100%',
         display: 'flex',
@@ -41,6 +49,10 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
       }}
     >
       <Button
+        variant={customVariant}
+        startIcon={startIcon}
+        endIcon={endIcon}
+        color={color}
         {...props}
         sx={{
           backgroundColor,
@@ -51,24 +63,15 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
           '&:hover': {
             backgroundColor,
           },
-          color,
+
           fontSize,
           fontWeight,
+          padding,
         }}
         onClick={onClick}
       >
         {label}
       </Button>
-      {supportingText && (
-        <Typography
-          variant="body1"
-          fontSize={'16px'}
-          color="#3B383E"
-          fontWeight={500}
-        >
-          {supportingText}
-        </Typography>
-      )}
     </Box>
   );
 };
