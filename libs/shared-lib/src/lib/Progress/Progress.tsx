@@ -1,12 +1,10 @@
 import React from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
 import { SxProps, Theme } from '@mui/material/styles';
+import { LinearProgress } from '@mui/material';
 
 interface CommonCircularProgressProps {
   variant?: 'determinate' | 'indeterminate';
   value?: number;
-  size?: number;
-  thickness?: number;
   color?: string;
   sx?: SxProps<Theme>;
 }
@@ -14,18 +12,19 @@ interface CommonCircularProgressProps {
 export const Progress: React.FC<CommonCircularProgressProps> = ({
   variant = 'determinate',
   value = 0,
-  size = 40,
-  thickness = 3.6,
   color = 'primary',
   sx = {},
 }) => {
   return (
-    <CircularProgress
+    <LinearProgress
       variant={variant}
       value={value}
-      size={size}
-      thickness={thickness}
       sx={{
+        height: 10,
+        borderRadius: '24px',
+        '& .MuiLinearProgress-bar': {
+          borderRadius: '24px', // For the progress indicator
+        },
         color,
         ...sx,
       }}

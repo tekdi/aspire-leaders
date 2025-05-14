@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Progress } from '../Progress/Progress';
 
 interface CommonCardProps {
@@ -30,7 +30,7 @@ interface CommonCardProps {
 
 export const CommonCard: React.FC<CommonCardProps> = ({
   avatarLetter,
-  avatarColor = red[500],
+  avatarColor = 'primary',
   title,
   subtitle,
   image,
@@ -89,11 +89,11 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             {title}
           </Typography>
         }
-        subtitle={
-          <Typography variant="h6" sx={{ fontSize: '14px' }}>
-            {subtitle}
-          </Typography>
-        }
+        // subtitle={
+        //   <Typography variant="h6" sx={{ fontSize: '14px' }}>
+        //     {subtitle}
+        //   </Typography>
+        // }
       />
       {/* Image and Progress Overlay */}
       <Box sx={{ position: 'relative', width: '100%' }}>
@@ -130,8 +130,6 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             <Progress
               variant="determinate"
               value={100}
-              size={30}
-              thickness={5}
               sx={{
                 color: '#fff8fb',
                 position: 'absolute',
@@ -141,8 +139,6 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             <Progress
               variant="determinate"
               value={progress}
-              size={30}
-              thickness={5}
               sx={{
                 color: progress === 100 ? '#21A400' : '#FFB74D',
                 position: 'absolute',
@@ -183,6 +179,10 @@ export const CommonCard: React.FC<CommonCardProps> = ({
           }}
         >
           <Typography
+            fontSize={'16px'}
+            fontWeight={'400'}
+            lineHeight={'24px'}
+            color={'#171D1E'}
             sx={{
               display: '-webkit-box',
               WebkitLineClamp: 2,
@@ -203,10 +203,14 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             paddingBottom: 0,
             overflow: 'hidden',
             maxWidth: '100%',
-            height: '50px',
+            paddingTop: '0',
           }}
         >
           <Typography
+            fontSize={'14px'}
+            fontWeight={'400'}
+            lineHeight={'20px'}
+            color={'#666666'}
             sx={{
               display: '-webkit-box',
               WebkitLineClamp: 2,
@@ -221,10 +225,18 @@ export const CommonCard: React.FC<CommonCardProps> = ({
       )}
 
       {description && (
-        <CardContent>
+        <CardContent
+          sx={{
+            paddingTop: '32px',
+          }}
+        >
           {' '}
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Typography
+              fontSize={'14px'}
+              fontWeight={'400'}
+              lineHeight={'20px'}
+              color={'#666666'}
               sx={{
                 display: '-webkit-box',
                 WebkitLineClamp: 2,
@@ -243,23 +255,14 @@ export const CommonCard: React.FC<CommonCardProps> = ({
         <CardActions
           disableSpacing
           sx={{
-            border: '1px solid #79747E',
-            borderRadius: '8px',
-            width: 'fit-content',
             display: 'flex',
-            justifyContent: 'center',
+            justifyContent: 'end',
             margin: '12px',
           }}
         >
-          <Typography
-            sx={{
-              fontSize: '14px',
-              fontWeight: 500,
-              color: '#6750A4',
-            }}
-          >
+          <Button variant="contained" color="primary">
             {actions}
-          </Typography>
+          </Button>
         </CardActions>
       )}
     </Card>

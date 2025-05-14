@@ -36,6 +36,7 @@ interface TabItem {
   icon?: React.ReactElement;
   label: string;
   content?: React.ReactNode;
+  disabled?: boolean;
 }
 
 interface CommonTabsProps {
@@ -60,7 +61,7 @@ export const CommonTabs: React.FC<CommonTabsProps> = ({
           aria-label={ariaLabel}
           TabIndicatorProps={{
             style: {
-              backgroundColor: '#6750A4',
+              backgroundColor: '#007D80',
               height: '3px',
               maxWidth: 49,
               width: '100%',
@@ -69,12 +70,12 @@ export const CommonTabs: React.FC<CommonTabsProps> = ({
           }}
           sx={{
             '.MuiTab-root': {
-              color: '#49454F', // Default tab text color
+              color: '#666666', // Default tab text color
               fontWeight: 500,
               textTransform: 'none', // Ensures text remains camel case
             },
             '.Mui-selected': {
-              color: '#6750A4 !important', // Selected tab text color
+              color: '#007D80 !important', // Selected tab text color
             },
           }}
         >
@@ -83,6 +84,7 @@ export const CommonTabs: React.FC<CommonTabsProps> = ({
               key={tab.label}
               icon={tab.icon ?? undefined}
               label={tab.label}
+              disabled={tab.disabled}
               {...a11yProps(index)}
             />
           ))}
