@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { Button } from '@mui/material';
 
 interface CommonDialogProps {
   isOpen: boolean;
@@ -27,10 +28,41 @@ export const CommonDialog: React.FC<CommonDialogProps> = ({
       onClose={disableCloseOnBackdropClick ? undefined : onClose}
       aria-labelledby="common-dialog-title"
       aria-describedby="common-dialog-description"
+      sx={{borderRadius: '24px'}}
     >
-      {header && <DialogTitle id="common-dialog-title">{header}</DialogTitle>}
-      {content && <DialogContent>{content}</DialogContent>}
-      {actions && <DialogActions>{actions}</DialogActions>}
+      {header && (
+        <DialogTitle
+          fontSize={'24px'}
+          lineHeight={'32px'}
+          fontWeight={'400'}
+          color={'#171D1E'}
+          id="common-dialog-title"
+        >
+          {header}
+        </DialogTitle>
+      )}
+      {content && (
+        <DialogContent
+          sx={{
+            fontSize: '14px',
+            fontWeight: '400',
+            lineHeight: '20px',
+            color: '#444746',
+            paddingBottom: 0,
+          }}
+        >
+          {content}
+        </DialogContent>
+      )}
+      {actions && (
+        <DialogActions sx={{
+          padding: '24px'
+        }}>
+          <Button variant="contained" color="primary">
+            {actions}
+          </Button>
+        </DialogActions>
+      )}
     </Dialog>
   );
 };

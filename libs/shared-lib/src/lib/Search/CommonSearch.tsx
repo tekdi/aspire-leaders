@@ -35,8 +35,9 @@ export const CommonSearch: React.FC<SearchBarProps> = ({
         display: 'flex',
         alignItems: 'center',
         // border: '1px solid #ccc',
-        borderRadius: '4px',
-        padding: '2px 4px',
+        backgroundColor: '#E3E9EA',
+        borderRadius: '28px',
+        padding: '8px 16px',
         ...sx,
       }}
     >
