@@ -3,6 +3,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
+import loginImg from '../../public/assets/aspireLogo.png';
 
 const Login = dynamic(
   () => import('../../../../mfes/authentication/src/pages/login'),
@@ -28,6 +29,9 @@ const LoginPage = () => {
 
   return (
     <Login
+      loginImg={loginImg}
+      loginText={'Log In'}
+      projectName="2025 Aspire Leaders Program"
       handleHomeRedirect={dashboard}
       onLoginSuccess={success}
       handleRedirect={forgotPasswordAPI}
