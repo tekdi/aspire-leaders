@@ -154,6 +154,7 @@ const customAdminTheme = extendTheme({
           black: '#000000',
           gradient: 'linear-gradient(180deg, #FFFDF6 100%, #F8EFDA 100%)',
           white: 'f4f6f8',
+          linkColor: '#2F00FF',
         },
         warning: {
           '100': '#17130B',

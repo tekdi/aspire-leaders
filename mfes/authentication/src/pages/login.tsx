@@ -344,13 +344,13 @@ const LoginPage: React.FC<LoginPageProps> = ({
                   </Box>
 
                   <Box
+                    color={'info.linkColor'}
                     sx={{
                       fontSize: '14px',
                       fontWeight: '400',
                       mt: 1,
                       lineHeight: '20px',
                       cursor: 'pointer',
-                      color: '#2F00FF',
                       textDecoration: 'underline',
                     }}
                     onClick={handleRedirect}
@@ -422,9 +422,9 @@ const LoginPage: React.FC<LoginPageProps> = ({
                           fontSize="14px"
                           fontWeight="400"
                           lineHeight="20px"
+                          color={'info.linkColor'}
                           sx={{
                             cursor: 'pointer',
-                            color: '#2F00FF',
                             textDecoration: 'underline',
                           }}
                           onClick={handleRedirect}
