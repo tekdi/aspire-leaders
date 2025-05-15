@@ -3,12 +3,14 @@ import {
   Box,
   Button,
   Checkbox,
+  Divider,
   FormControl,
   Grid,
   IconButton,
   InputAdornment,
   MenuItem,
   TextField,
+  Typography,
 } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import React, { useEffect, useRef, useState } from 'react';
@@ -18,8 +20,7 @@ import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { getUserId, login } from '../services/LoginService';
-import loginImg from '../../assets/images/login-image.jpg';
+import { getUserDetails, getUserId, login } from '../services/LoginService';
 import Loader from './components/Loader';
 import { useDirection } from '../hooks/useDirection';
 import config from '../../config.json';
@@ -31,18 +32,27 @@ type LoginPageProps = {
   onLoginSuccess: (response: any) => void;
   handleRedirect: (response: any) => void;
   handleHomeRedirect: (response: any) => void;
+  loginText: string;
+  projectName: string;
+  loginImg?: any;
+  register?: boolean;
 };
 
 const LoginPage: React.FC<LoginPageProps> = ({
   onLoginSuccess,
   handleRedirect,
+  loginText,
   handleHomeRedirect,
+  projectName,
+  loginImg,
+  register,
 }) => {
   const { t, i18n } = useTranslation();
   const theme = useTheme<any>();
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [ErrorMsg, setErrorMsg] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
@@ -107,18 +117,23 @@ const LoginPage: React.FC<LoginPageProps> = ({
               localStorage.removeItem('refreshToken');
             }
 
-            handleHomeRedirect(response);
-            setLoading(false);
-            console.log('dash')
+            // handleHomeRedirect(response);
+            // console.log('dash');
             const userResponse = await getUserId();
 
-            // if (onLoginSuccess) {
-            //   onLoginSuccess(userResponse);
-            //   setLoading(false);
-            // }
+            const userId = userResponse.userId;
+
+            localStorage.setItem('userId', userId);
+
+            if (userId) {
+              const userDetails = await getUserDetails(userId);
+              setLoading(false);
+              handleHomeRedirect(response);
+            }
           }
         }
       } catch (error: any) {
+        setErrorMsg(error.response.data.params.errmsg);
         setOpen(true);
         setLoading(false);
       }
@@ -165,57 +180,38 @@ const LoginPage: React.FC<LoginPageProps> = ({
       : null;
 
   return (
-    <Box sx={{ overflowY: 'auto', background: theme.palette.warning['A400'] }}>
-      <Grid
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
+    <Box sx={{ overflowY: 'auto' }}>
+      <Box
         width={'100% !important'}
         height={'100dvh'}
-        bgcolor={'#FFE69C'}
         px={'30px'}
+        display={'flex'}
+        flexDirection={'column'}
+        justifyContent={'center'}
+        alignItems={'center'}
       >
-        {/* <Grid
-          sx={{
-            '@media (max-width: 900px)': {
-              display: 'none',
-            },
-          }}
-          item
-          xs={12}
-          sm={12}
-          md={6}
-        >
-          <Image
-            className="login-img"
-            src={loginImg}
-            alt="Login Image"
-            layout="responsive"
-          />
-        </Grid> */}
-        <Grid item xs={12} sm={12} md={6}>
+        <Box style={{ maxWidth: '316px', width: '100%' }} textAlign={'center'}>
+          {loginImg && (
+            <Image
+              className="login-img"
+              src={loginImg}
+              alt="Login Image"
+              layout="responsive"
+              width={316}
+            />
+          )}
+          {projectName && (
+            <Typography variant="h2" my={3}>
+              {projectName}
+            </Typography>
+          )}
+
+          {loginText && <Typography variant="h4">{loginText}</Typography>}
+        </Box>
+        <Box>
           <form onSubmit={handleFormSubmit}>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-              <Box
-                flexGrow={1}
-                // display={'flex'}
-                bgcolor={'white'}
-                height="auto"
-                zIndex={99}
-                justifyContent={'center'}
-                p={'2rem'}
-                borderRadius={'1rem'}
-                sx={{
-                  '@media (min-width: 900px)': {
-                    width: '100%',
-                    borderRadius: '16px',
-                    boxShadow:
-                      darkMode === 'dark'
-                        ? 'rgba(0, 0, 0, 0.9) 0px 2px 8px 0px'
-                        : 'rgba(99, 99, 99, 0.2) 0px 2px 8px 0px',
-                  },
-                }}
-              >
+              <Box>
                 <Box
                   display="flex"
                   flexDirection="column"
@@ -230,28 +226,6 @@ const LoginPage: React.FC<LoginPageProps> = ({
                   {loading && (
                     <Loader showBackdrop={true} loadingText={'Loading'} />
                   )}
-                  {/* <Box
-                    display={'flex'}
-                    overflow="auto"
-                    alignItems={'center'}
-                    justifyContent={'center'}
-                    zIndex={99}
-                    // sx={{ margin: '5px 10px 25px', }}
-                  >
-                    <Box
-                      sx={{
-                        width: '60%',
-                        '@media (max-width: 700px)': { width: '95%' },
-                      }}
-                    >
-                      <Image
-                        src={appLogo}
-                        alt="App Logo"
-                        height={80}
-                        layout="responsive"
-                      />
-                    </Box>
-                  </Box> */}
                 </Box>
                 <Box
                   sx={{
@@ -372,15 +346,17 @@ const LoginPage: React.FC<LoginPageProps> = ({
                   <Box
                     sx={{
                       fontSize: '14px',
-                      fontWeight: '500',
-                      color: theme.palette.secondary.main,
+                      fontWeight: '400',
                       mt: 1,
+                      lineHeight: '20px',
                       cursor: 'pointer',
+                      color: '#2F00FF',
+                      textDecoration: 'underline',
                     }}
                     onClick={handleRedirect}
                   >
                     {/* {t('LOGIN_PAGE.FORGOT_PASSWORD')} */}
-                    Forgot Password
+                    Forgot Password?
                   </Box>
 
                   {/* <Box marginTop={'1.2rem'} className="">
@@ -412,7 +388,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
                   <Box
                     alignContent={'center'}
                     textAlign={'center'}
-                    marginTop={'2rem'}
+                    margin={'2rem 0'}
                     width={'100%'}
                   >
                     <Button
@@ -426,12 +402,44 @@ const LoginPage: React.FC<LoginPageProps> = ({
                       Login
                     </Button>
                   </Box>
+
+                  {register && (
+                    <Box>
+                      <Divider />
+                      <Box
+                        display="flex"
+                        justifyContent="center"
+                        gap={1}
+                        alignItems="center"
+                        fontSize="14px"
+                        fontWeight="400"
+                        lineHeight="20px"
+                        mt={1}
+                      >
+                        Don’t have an Account?
+                        <Box
+                          component="span"
+                          fontSize="14px"
+                          fontWeight="400"
+                          lineHeight="20px"
+                          sx={{
+                            cursor: 'pointer',
+                            color: '#2F00FF',
+                            textDecoration: 'underline',
+                          }}
+                          onClick={handleRedirect}
+                        >
+                          Register
+                        </Box>
+                      </Box>
+                    </Box>
+                  )}
                 </Box>
               </Box>
             </Box>
           </form>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
       <Snackbar
         open={open}
         autoHideDuration={3000}
@@ -445,7 +453,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
           icon={<ErrorOutlineIcon sx={{ color: 'white' }} />}
         >
           {' '}
-          {t('LOGIN_PAGE.USERNAME_PASSWORD_NOT_CORRECT')}
+          {ErrorMsg}
         </Alert>
       </Snackbar>
     </Box>

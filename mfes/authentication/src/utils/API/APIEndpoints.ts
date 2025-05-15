@@ -1,10 +1,11 @@
 const baseurl = process.env.NEXT_PUBLIC_MIDDLEWARE_URL;
 
 const API_ENDPOINTS = {
-  accountLogin: `${baseurl}/user/v1/auth/login`,
+  accountLogin: `${baseurl}/auth/login`,
   authRefresh: `${baseurl}/account/auth/refresh`,
   authLogout: `${baseurl}/account/auth/logout`,
-  userAuth: `${baseurl}/user/auth`,
+  userAuth: `${baseurl}/auth`,
+  userDetails: `${baseurl}/read`,
   resetPassword: `${baseurl}/user/reset-password`,
   forgotPassword: `${baseurl}/user/forgot-password`,
   passwordResetLink: `${baseurl}/user/password-reset-link`,

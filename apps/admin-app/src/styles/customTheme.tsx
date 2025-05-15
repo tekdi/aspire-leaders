@@ -134,7 +134,7 @@ const customAdminTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          main: '#FDBE16',
+          main: '#007D80',
           light: '#FFDEA1',
         },
         secondary: {
