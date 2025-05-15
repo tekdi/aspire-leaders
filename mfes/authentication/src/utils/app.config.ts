@@ -81,12 +81,12 @@ if (!tenantId && typeof window !== 'undefined') {
   );
 }
 
-export const frameworkId = process.env.NEXT_PUBLIC_FRAMEWORK_ID || '';
-if (!frameworkId) {
-  console.warn(
-    'NEXT_PUBLIC_FRAMEWORK_ID is not set in the environment variables.'
-  );
-}
+// export const frameworkId = process.env.NEXT_PUBLIC_FRAMEWORK_ID || '';
+// if (!frameworkId) {
+//   console.warn(
+//     'NEXT_PUBLIC_FRAMEWORK_ID is not set in the environment variables.'
+//   );
+// }
 
 export enum AssessmentType {
   PRE_TEST = 'Pre Test',
@@ -126,12 +126,12 @@ export const TENANT_DATA = {
   LEADER: 'leader',
 };
 
-export const jotFormId = process.env.NEXT_PUBLIC_JOTFORM_ID || '';
-if (!jotFormId) {
-  console.warn(
-    'NEXT_PUBLIC_JOTFORM_ID is not set in the environment variables.'
-  );
-}
+// export const jotFormId = process.env.NEXT_PUBLIC_JOTFORM_ID || '';
+// if (!jotFormId) {
+//   console.warn(
+//     'NEXT_PUBLIC_JOTFORM_ID is not set in the environment variables.'
+//   );
+// }
 
 export const BOTTOM_DRAWER_CONSTANTS = {
   MARK_VOLUNTEER: 'Marked as Volunteer',
