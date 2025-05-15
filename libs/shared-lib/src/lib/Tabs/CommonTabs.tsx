@@ -61,7 +61,7 @@ export const CommonTabs: React.FC<CommonTabsProps> = ({
           aria-label={ariaLabel}
           TabIndicatorProps={{
             style: {
-              backgroundColor: '#007D80',
+              backgroundColor: 'primary.main',
               height: '3px',
               maxWidth: 49,
               width: '100%',
@@ -70,12 +70,12 @@ export const CommonTabs: React.FC<CommonTabsProps> = ({
           }}
           sx={{
             '.MuiTab-root': {
-              color: '#666666', // Default tab text color
+              color: 'grey.500',
               fontWeight: 500,
-              textTransform: 'none', // Ensures text remains camel case
+              textTransform: 'none',
             },
             '.Mui-selected': {
-              color: '#007D80 !important', // Selected tab text color
+              color: 'primary.main',
             },
           }}
         >

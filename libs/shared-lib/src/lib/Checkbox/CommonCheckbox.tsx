@@ -25,9 +25,9 @@ interface CheckboxGroupProps {
 export const CommonCheckbox: React.FC<CheckboxGroupProps> = ({
   checkboxes,
   onChange,
-  direction = 'column',
-  checkIconColor = '#fff',
-  checkedBgColor = '#007D80',
+  direction,
+  checkIconColor,
+  checkedBgColor,
   CustomCheckIcon,
 }) => {
   const [checkedState, setCheckedState] = useState(checkboxes.map(() => false));
@@ -56,7 +56,7 @@ export const CommonCheckbox: React.FC<CheckboxGroupProps> = ({
       style={{
         width: 20,
         height: 20,
-        backgroundColor: disabled ? '#ccc' : checkedBgColor,
+        backgroundColor: disabled ? 'grey.100' : checkedBgColor,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -65,14 +65,17 @@ export const CommonCheckbox: React.FC<CheckboxGroupProps> = ({
     >
       {CustomCheckIcon ? (
         <CustomCheckIcon
-          style={{ color: disabled ? '#ffffff' : checkIconColor, fontSize: 16 }}
+          style={{
+            color: disabled ? 'primary.contrastText' : checkIconColor,
+            fontSize: 16,
+          }}
         />
       ) : (
         <span
           style={{
             width: 10,
             height: 10,
-            backgroundColor: disabled ? '#888' : checkIconColor,
+            backgroundColor: disabled ? 'grey.200' : checkIconColor,
           }}
         />
       )}
@@ -85,9 +88,9 @@ export const CommonCheckbox: React.FC<CheckboxGroupProps> = ({
         width: 20,
         height: 20,
         display: 'inline-block',
-        border: `2px solid ${disabled ? '#ccc' : checkedBgColor}`,
+        border: `2px solid ${disabled ? 'grey.100' : checkedBgColor}`,
         borderRadius: 4,
-        backgroundColor: disabled ? '#f0f0f0' : 'transparent',
+        backgroundColor: disabled ? 'grey.50' : 'transparent',
       }}
     />
   );

@@ -100,6 +100,33 @@ const commonComponents = {
       },
     },
   },
+  MuiPickersLayout: {
+    styleOverrides: {
+      root: {
+        borderRadius: 20,
+        backgroundColor: '#e6ebeb',
+        padding: '16px',
+      },
+    },
+  },
+  MuiClock: {
+    styleOverrides: {
+      root: {
+        backgroundColor: '#e6ebeb',
+      },
+      pin: {
+        backgroundColor: 'teal[700]',
+      },
+    },
+  },
+  MuiTypography: {
+    styleOverrides: {
+      root: {
+        color: '#2f2f2f',
+      },
+    },
+  },
+
 };
 
 const customLearnerTheme = extendTheme({
@@ -108,7 +135,7 @@ const customLearnerTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          main: '#FDBE16',
+          main: '#007D80',
           light: '#FFDEA1',
         },
         secondary: {
@@ -120,12 +147,14 @@ const customLearnerTheme = extendTheme({
           light: '#C0FFC7',
         },
         info: {
+          50: '#e8f0f4',
           main: '#064471',
           light: '#D6EEFF',
           contrastText: '#EFC570',
           //@ts-ignore
           black: '#000000',
           gradient: 'linear-gradient(180deg, #FFFDF6 100%, #F8EFDA 100%)',
+          white: 'f4f6f8',
         },
         warning: {
           '100': '#17130B',
@@ -146,6 +175,13 @@ const customLearnerTheme = extendTheme({
           main: '#BA1A1A',
           light: '#FFDAD6',
           contrastText: '#1E1B16',
+        },
+        grey: {
+          50: 'f0f0f0',
+          100: '#ccc',
+          200: '888',
+          500: '#666666',
+          900: '#171d1e',
         },
         action: {
           activeChannel: '#987100',

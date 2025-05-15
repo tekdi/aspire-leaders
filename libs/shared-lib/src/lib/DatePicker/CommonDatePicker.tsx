@@ -32,7 +32,7 @@ export const CommonDatePicker: React.FC<CommonDatePickerProps> = ({
               InputProps: {
                 sx: {
                   borderRadius: 2,
-                  backgroundColor: '#f4f6f8',
+                  backgroundColor: 'info.white',
                 },
               },
             },

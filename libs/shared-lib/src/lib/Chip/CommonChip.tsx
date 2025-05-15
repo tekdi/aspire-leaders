@@ -17,10 +17,10 @@ const CommonChip: React.FC<CommonChipProps> = ({
   leftIcon,
   rightIcon,
   onRightIconClick,
-  borderRadius = '999px',
-  backgroundColor = '#e8f0f4',
-  paddingX = 1.5,
-  paddingY = 0.5,
+  borderRadius,
+  backgroundColor,
+  paddingX,
+  paddingY,
 }) => {
   return (
     <Box

@@ -75,25 +75,26 @@ export const CommonCard: React.FC<CommonCardProps> = ({
         }
         title={
           <Typography
+            color={'grey.900'}
+            fontSize={'16px'}
+            whiteSpace={'wrap'}
+            overflow={'hidden'}
+            textOverflow={'ellipsis'}
+            pl={'5px'}
             sx={{
-              fontSize: '16px',
-              whiteSpace: 'wrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
               WebkitLineClamp: 1,
-              paddingLeft: '5px',
             }}
           >
             {title}
           </Typography>
         }
-        // subtitle={
-        //   <Typography variant="h6" sx={{ fontSize: '14px' }}>
-        //     {subtitle}
-        //   </Typography>
-        // }
+        subtitle={
+          <Typography variant="h6" sx={{ fontSize: '14px' }}>
+            {subtitle}
+          </Typography>
+        }
       />
       {/* Image and Progress Overlay */}
       <Box sx={{ position: 'relative', width: '100%' }}>
@@ -112,60 +113,6 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             }}
           />
         )}
-
-        {/* Progress Bar Overlay */}
-        {progress !== undefined && (
-          <Box
-            sx={{
-              position: 'absolute',
-              height: '40px',
-              top: 0,
-              width: '100%',
-              display: 'flex',
-              // justifyContent: 'center',
-              alignItems: 'center',
-              background: 'rgba(0, 0, 0, 0.5)',
-            }}
-          >
-            <Progress
-              variant="determinate"
-              value={100}
-              sx={{
-                color: '#fff8fb',
-                position: 'absolute',
-                left: '10px',
-              }}
-            />
-            <Progress
-              variant="determinate"
-              value={progress}
-              sx={{
-                color: progress === 100 ? '#21A400' : '#FFB74D',
-                position: 'absolute',
-                left: '10px',
-              }}
-            />
-            <Typography
-              sx={{
-                fontSize: '12px',
-                fontWeight: 'bold',
-                marginLeft: '12px',
-                color: progress === 100 ? '#21A400' : '#FFB74D',
-                position: 'absolute',
-                left: '50px',
-              }}
-            >
-              {status &&
-                actions &&
-                actions?.toString().toLowerCase() === 'resource' &&
-                status}
-              {status &&
-                actions &&
-                actions?.toString().toLowerCase() === 'course' &&
-                `${progress}%`}
-            </Typography>
-          </Box>
-        )}
       </Box>
 
       {header && (
@@ -182,7 +129,7 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             fontSize={'16px'}
             fontWeight={'400'}
             lineHeight={'24px'}
-            color={'#171D1E'}
+            color={'grey.900'}
             sx={{
               display: '-webkit-box',
               WebkitLineClamp: 2,
@@ -210,7 +157,7 @@ export const CommonCard: React.FC<CommonCardProps> = ({
             fontSize={'14px'}
             fontWeight={'400'}
             lineHeight={'20px'}
-            color={'#666666'}
+            color={'grey.500'}
             sx={{
               display: '-webkit-box',
               WebkitLineClamp: 2,
@@ -236,7 +183,7 @@ export const CommonCard: React.FC<CommonCardProps> = ({
               fontSize={'14px'}
               fontWeight={'400'}
               lineHeight={'20px'}
-              color={'#666666'}
+              color={'grey.500'}
               sx={{
                 display: '-webkit-box',
                 WebkitLineClamp: 2,

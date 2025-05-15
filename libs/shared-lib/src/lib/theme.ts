@@ -55,6 +55,13 @@ export const lightTheme = createTheme({
     secondary: {
       main: '#dc004e',
     },
+    grey: {
+      50: 'f0f0f0',
+      100: '#ccc',
+      200: '888',
+      500: '#666666',
+      900: '#171d1e',
+    },
     background: {
       default: '#fff',
       paper: '#f5f5f5',
