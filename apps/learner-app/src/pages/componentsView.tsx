@@ -89,6 +89,35 @@ export function componentsView() {
 
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs());
 
+  const accordionData = [
+    {
+      identifier: 'item-1',
+      name: 'Module 1',
+      leafNodesCount: 5,
+      children: [
+        {
+          identifier: 'item-1-1',
+          name: 'Lesson 1.1',
+          leafNodesCount: 2,
+          children: [],
+        },
+        {
+          identifier: 'item-1-2',
+          name: 'Lesson 1.2',
+          leafNodesCount: 3,
+          children: [],
+        },
+      ],
+    },
+    {
+      identifier: 'item-2',
+      name: 'Module 2',
+      leafNodesCount: 3,
+      children: [],
+    },
+  ];
+
+
   return (
     <div className={styles.page}>
       <div className="wrapper">
@@ -353,6 +382,7 @@ export function componentsView() {
             value={selectedDate}
             onChange={(newDate) => setSelectedDate(newDate)}
           />
+
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/s
 import CssBaseline from '@mui/material/CssBaseline';
 import customAdminTheme from '@/styles/customTheme'; // Adjust path accordingly
 import './styles.css';
+import '../styles/customFormBuilder.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (

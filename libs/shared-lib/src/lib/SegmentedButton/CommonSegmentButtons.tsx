@@ -4,8 +4,9 @@ import {
   ToggleButtonGroup,
   ToggleButtonGroupProps,
 } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
 
-interface SegmentOption {
+export interface SegmentOption {
   label: string;
   value: string;
   image?: React.ReactNode;
@@ -40,33 +41,55 @@ export const CommonSegmentButtons: React.FC<CommonSegmentButtonsProps> = ({
       onChange={onChange}
       orientation={orientation}
       {...rest}
-      sx={{
-        borderRadius: '100px',
-        overflow: 'hidden', // ensure children follow the rounded corners
-        border: '0.1px solid #CCCCCC', // optional: to show the group boundary
-      }}
     >
-      {options.map(
-        ({ label, value, image, imagePosition = 'start', disabled }) => (
+      {options.map(({ label, value: optionValue, disabled }, index) => {
+        const isSelected = exclusive
+          ? value === optionValue
+          : Array.isArray(value) && value.includes(optionValue);
+
+        return (
           <ToggleButton
-            key={value}
-            value={value}
+            key={optionValue}
+            value={optionValue}
             disabled={disabled}
             sx={{
               display: 'flex',
+              minWidth: '120px',
               gap: 1,
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '6px 12px',
+              padding: '6px 16px',
               textTransform: 'none',
+              fontWeight: isSelected ? 600 : 500,
+              border: '1px solid #ccc !important',
+              borderRadius: 0,
+              backgroundColor: isSelected ? '#E2E8F0' : '#fff',
+              color: isSelected ? '#001F24' : '#000',
+              borderRight:
+                index !== options.length - 1 ? '1px solid #E2E8F0' : 'none',
+              '&:first-of-type': {
+                borderTopLeftRadius: '9999px',
+                borderBottomLeftRadius: '9999px',
+              },
+              '&:last-of-type': {
+                borderTopRightRadius: '9999px',
+                borderBottomRightRadius: '9999px',
+              },
+              '&.Mui-selected:hover': {
+                backgroundColor: '#E2E8F0',
+              },
+              '&.Mui-selected': {
+                backgroundColor: '#E2E8F0',
+              },
             }}
           >
-            {imagePosition === 'start' && image}
+            {isSelected && (
+              <CheckIcon sx={{ fontSize: 16, color: '#0F172A' }} />
+            )}
             {label}
-            {imagePosition === 'end' && image}
           </ToggleButton>
-        ),
-      )}
+        );
+      })}
     </ToggleButtonGroup>
   );
 };

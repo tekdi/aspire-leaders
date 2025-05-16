@@ -74,7 +74,7 @@ const renderNestedData = (
 };
 
 // Main component that renders the Accordion
-export const CommonAccordian: React.FC<CommonAccordionProps> = ({
+export const CommonAccordion: React.FC<CommonAccordionProps> = ({
   identifier,
   title,
   content = [],
@@ -144,4 +144,4 @@ export const CommonAccordian: React.FC<CommonAccordionProps> = ({
   );
 };
 
-export default CommonAccordian;
+export default CommonAccordion;

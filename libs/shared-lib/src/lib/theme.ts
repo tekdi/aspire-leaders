@@ -51,14 +51,15 @@ export const lightTheme = createTheme({
     mode: 'light',
     primary: {
       main: '#1976d2',
+      dark: '#001F24',
     },
     secondary: {
       main: '#dc004e',
     },
     grey: {
-      50: 'f0f0f0',
+      50: '#f0f0f0',
       100: '#ccc',
-      200: '888',
+      200: '#888',
       500: '#666666',
       900: '#171d1e',
     },
