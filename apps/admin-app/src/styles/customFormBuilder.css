@@ -448,6 +448,13 @@
   width: 100%;
 }
 
+.card-entry,
+.card-entry-row .card-entry  {
+  width: 100% !important;
+}
+
+
+
 /* .form-footer svg {
   visibility: hidden;
 }
