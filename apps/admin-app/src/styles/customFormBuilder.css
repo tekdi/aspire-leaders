@@ -258,6 +258,11 @@
   min-height: 49px;
 }
 
+.card-modal-select > div input,
+.card-select > div input{
+  border: none !important;
+}
+
 .card-modal-select .css-tr4s17-option {
   background-color: #007d80;
   color: white;
