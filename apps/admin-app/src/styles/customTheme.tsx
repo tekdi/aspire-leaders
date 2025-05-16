@@ -5,6 +5,27 @@ import {
   getContrastRatio,
 } from '@mui/material/styles';
 
+import { TypographyOptions } from '@mui/material/styles/createTypography';
+
+// Add the new variant to the interface
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    headlineMedium: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    headlineMedium?: React.CSSProperties;
+  }
+}
+
+// Then extend the Typography props so that `variant="headlineMedium"` is allowed
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    headlineMedium: true;
+  }
+}
+
+
 // Common component style overrides
 
 const commonComponents = {
@@ -153,7 +174,7 @@ const customAdminTheme = extendTheme({
           //@ts-ignore
           black: '#000000',
           gradient: 'linear-gradient(180deg, #FFFDF6 100%, #F8EFDA 100%)',
-          white: 'f4f6f8',
+          white: '#f4f6f8',
           linkColor: '#2F00FF',
         },
         warning: {
@@ -177,10 +198,11 @@ const customAdminTheme = extendTheme({
           contrastText: '#1E1B16',
         },
         grey: {
-          50: 'f0f0f0',
+          50: '#f0f0f0',
           100: '#ccc',
-          200: '888',
+          200: '#888',
           500: '#666666',
+          800: '#001F24',
           900: '#171d1e',
         },
         action: {
@@ -196,6 +218,7 @@ const customAdminTheme = extendTheme({
           custom5: '#32CD32', // LimeGreen
           custom6: '#9370DB', // MediumPurple
           custom7: '#2ac300', //parrotGreen
+          bgColor: '#F5F8F8',
         },
       },
     },
@@ -249,6 +272,11 @@ const customAdminTheme = extendTheme({
   components: commonComponents,
   typography: {
     fontFamily: 'inherit',
+    headlineMedium: {
+      fontSize: '28px',
+      fontWeight: '400',
+      lineHeight: '36px',
+    },
     h1: {
       fontSize: '22px',
       fontWeight: 400,

@@ -154,7 +154,7 @@ const customLearnerTheme = extendTheme({
           //@ts-ignore
           black: '#000000',
           gradient: 'linear-gradient(180deg, #FFFDF6 100%, #F8EFDA 100%)',
-          white: 'f4f6f8',
+          white: '#f4f6f8',
           linkColor: '#2F00FF',
         },
         warning: {
@@ -178,9 +178,9 @@ const customLearnerTheme = extendTheme({
           contrastText: '#1E1B16',
         },
         grey: {
-          50: 'f0f0f0',
+          50: '#f0f0f0',
           100: '#ccc',
-          200: '888',
+          200: '#888',
           500: '#666666',
           900: '#171d1e',
         },

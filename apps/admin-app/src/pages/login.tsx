@@ -20,7 +20,7 @@ const LoginPage = () => {
   };
 
   const dashboard = () => {
-    router.push('/dashboard');
+    router.push('/applicationForm');
   };
 
   const success = (response: any) => {

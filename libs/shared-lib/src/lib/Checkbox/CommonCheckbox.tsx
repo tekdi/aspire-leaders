@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox, { CheckboxProps } from '@mui/material/Checkbox';
+import { Box } from '@mui/material';
 
 interface CommonCheckboxProps extends CheckboxProps {
   label: string;
@@ -52,11 +53,12 @@ export const CommonCheckbox: React.FC<CheckboxGroupProps> = ({
   };
 
   const renderCheckedIcon = (disabled: boolean) => (
-    <span
+    <Box
+      bgcolor={disabled ? 'grey.100' : checkedBgColor}
+      component="span"
       style={{
         width: 20,
         height: 20,
-        backgroundColor: disabled ? 'grey.100' : checkedBgColor,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -71,26 +73,28 @@ export const CommonCheckbox: React.FC<CheckboxGroupProps> = ({
           }}
         />
       ) : (
-        <span
+        <Box
+          component="span"
+          bgcolor={disabled ? 'grey.200' : checkIconColor}
           style={{
             width: 10,
             height: 10,
-            backgroundColor: disabled ? 'grey.200' : checkIconColor,
           }}
         />
       )}
-    </span>
+    </Box>
   );
 
   const renderUncheckedIcon = (disabled: boolean) => (
-    <span
+    <Box
+      component="span"
+      border={`2px solid ${disabled ? 'grey.100' : checkedBgColor}`}
+      bgcolor={disabled ? 'grey.50' : 'transparent'}
       style={{
         width: 20,
         height: 20,
         display: 'inline-block',
-        border: `2px solid ${disabled ? 'grey.100' : checkedBgColor}`,
         borderRadius: 4,
-        backgroundColor: disabled ? 'grey.50' : 'transparent',
       }}
     />
   );
