@@ -399,6 +399,23 @@
   margin: 0px !important;
 }
 
+.form-dependency-condition ul {
+  padding: 0;
+}
+
+.form-dependency-condition ul li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: space-between;
+  background: #e7ebef;
+  padding: 10px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
 .modal-footer {
   border: none !important;
   padding: 0px !important;
@@ -425,7 +442,7 @@
 }
 
 .card-modal-entries.modal-body,
-.modal-footer  {
+.modal-footer {
   max-width: 580px;
   margin: auto;
   width: 100%;
