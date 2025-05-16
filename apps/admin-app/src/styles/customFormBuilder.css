@@ -15,7 +15,6 @@
 .customFormBuilder .formHead-0-2-2 div {
   width: 100%;
   display: unset;
-  padding: 10px;
   text-align: left;
   padding: 0;
 }
@@ -169,7 +168,6 @@
   top: 4px;
   width: 16px;
   height: 16px;
-  border: 2px solid #007d80;
   border-radius: 50%;
   background-color: transparent;
   box-sizing: border-box;
@@ -338,7 +336,6 @@
   appearance: none;
   padding: 8px;
   border: 2px solid #008080; /* Teal border */
-  border-radius: 4px;
   background-color: #fff;
   cursor: pointer;
   position: relative;
